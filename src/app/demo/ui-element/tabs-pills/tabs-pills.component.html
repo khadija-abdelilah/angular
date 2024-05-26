@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des Utilisateurs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h2>Gestion des Utilisateurs</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Nom d'utilisateur</th>
+      <th>Adresse Email</th>
+      <th>Statut</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody id="user-table-body">
+    <!-- Les lignes des utilisateurs seront ajoutées ici dynamiquement -->
+    </tbody>
+  </table>
+</div>
+
+<script>
+  const users = [
+    { username: 'dija1', email: 'dija1@example.com', active: true },
+    { username: 'dija2', email: 'dija2@example.com', active: false },
+    { username: 'dija3', email: 'dija3@example.com', active: true },
+    { username: 'dija4', email: 'dija4@example.com', active: false },
+    { username: 'dija5', email: 'dija5@example.com', active: true },
+    { username: 'hachim1', email: 'hachim1@example.com', active: false },
+    { username: 'hachim2', email: 'hachim2@example.com', active: true },
+    { username: 'hachim3', email: 'hachim3@example.com', active: false },
+    { username: 'hachim4', email: 'hachim4@example.com', active: true },
+    { username: 'hachim5', email: 'hachim5@example.com', active: false }
+  ];
+
+  function renderUsers() {
+    const userTableBody = document.getElementById('user-table-body');
+    userTableBody.innerHTML = '';
+
+    users.forEach((user, index) => {
+      const userRow = document.createElement('tr');
+
+      const usernameCell = document.createElement('td');
+      usernameCell.textContent = user.username;
+      userRow.appendChild(usernameCell);
+
+      const emailCell = document.createElement('td');
+      emailCell.textContent = user.email;
+      userRow.appendChild(emailCell);
+
+      const statusCell = document.createElement('td');
+      statusCell.textContent = user.active ? 'Actif' : 'Inactif';
+      userRow.appendChild(statusCell);
+
+      const actionCell = document.createElement('td');
+      const actionButton = document.createElement('button');
+      actionButton.className = 'btn btn-sm ' + (user.active ? 'btn-danger' : 'btn-success');
+      actionButton.textContent = user.active ? 'Désactiver' : 'Activer';
+      actionButton.onclick = () => toggleUserStatus(index);
+      actionCell.appendChild(actionButton);
+      userRow.appendChild(actionCell);
+
+      userTableBody.appendChild(userRow);
+    });
+  }
+
+  function toggleUserStatus(index) {
+    users[index].active = !users[index].active;
+    renderUsers();
+  }
+
+  document.addEventListener('DOMContentLoaded', renderUsers);
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
